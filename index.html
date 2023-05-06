@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="./dist/output.css" rel="stylesheet">
+  <style>
+    [x-cloak] { display: none !important; }
+  </style>
+</head>
+
+<body class="bg-gray-100 text-gray-500" x-data="{
+  isNavBarOpen:false
+}">
+  <!-- header__information -->
+  <div class="bg-white z-10 drop-shadow fixed w-full top-0 p-3">
+
+    <nav class="max-w-xl mx-auto md:flex justify-between items-center" @click.away="isNavBarOpen=false">
+
+      <!-- flex__container -->
+      <div class="flex items-center justify-between">
+
+        <!-- left__side -->
+        <div>
+          <h1 class="capitalize  hover:text-gray-800 cursor-pointer">Carousel In alpine</h1>
+        </div>
+
+        <!-- right__side -->
+
+        <!-- humberg_me -->
+        <div class="md:hidden">
+          <ul>
+
+            <li>
+              <a href="#" @click="isNavBarOpen=!isNavBarOpen">|||</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- multiple -->
+      <div class=" md:flex" :class="isNavBarOpen?'block':'hidden'">
+        <ul class="p-4 md:p-0 md:flex  items-center justify-between md:space-x-4">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+
+
+  <div class="mt-[4rem] mx-auto max-w-xl" x-data="{
+  activeSlide:1,
+  slides:[
+    {
+      id:1,
+      title:'Alpine Js',
+      content:'Light weight frame work for modern apps',
+      image:'./assets/1.jpg',
+    },
+    {
+      id:2,
+      title:'Laravel Js',
+      content:'Light weight frame work for modern apps',
+      image:'./assets/2.jpg'
+    },
+    {
+      id:3,
+      title:'Vue Js',
+      content:'SPa applications',
+      image:'./assets/3.jpg',
+    }
+  ]
+}"
+x-init="setTimeout(() => show = false, 3000)"
+>
+<div class="p-2">
+
+  <!-- carousel__container -->
+  <div class="h-64 w-full overflow-hidden rounded  relative"  >
+
+    <template x-for="slide in slides" :key="slide.id">
+    <!-- carousel__card -->
+    <div x-cloak  x-show="activeSlide==slide.id" >
+
+      <img :src="slide.image" class="w-full h-full object-cover" alt="">
+      <!-- content -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] text-center   ">
+        <p class="text-white font-bold text-2xl"x-text=slide.title></p>
+        <p class="text-white text-sm" x-text="slide.content"></p>
+      </div>
+
+      <!-- buttons -->
+      <div>
+        <!-- left__bbutton -->
+        <div class="absolute top-[50%] left-[2%]">
+
+          <div class="bg-gray-500 text-white relative rounded-full">
+            <a href="#" @click="activeSlide=activeSlide===1?slides.length:activeSlide-1">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+
+              </span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- right__button -->
+        <div class="absolute top-[50%] right-[2%]">
+
+          <div class="bg-gray-500 text-white relative rounded-full">
+            <a href="#"  @click="activeSlide=activeSlide===slides.length?1:activeSlide+1">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+
+
+              </span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+     
+
+    </div>
+    <!-- carousel__card -->
+    </template>
+
+      <!-- current__state -->
+      <div class="">
+        <ul class="absolute bottom-[10%] left-1/2 -translate-x-1/2 -translate-y-1/2  flex items-center justify-between space-x-4"> 
+          <template x-for="slide in slides" :key="slide.id">
+            <li class="w-10 h-2  rounded cursor-pointer" @click="activeSlide=slide.id" x-bind:class="slide.id===activeSlide?'bg-gray-300':'bg-gray-100'"></li>
+          </template>
+        </ul>
+      </div>
+
+  </div>
+</div>
+
+  </div>
+
+</body>
+
+</html>
